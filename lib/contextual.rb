@@ -1,5 +1,3 @@
 require "contextual/version"
+require "contextual/contextual"
 
-module Contextual
-  # Your code goes here...
-end

@@ -7,11 +7,14 @@ Gem::Specification.new do |s|
   s.version     = Contextual::VERSION
   s.authors     = ["Ilya Grigorik"]
   s.email       = ["ilya@igvita.com"]
-  s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.homepage    = "https://github.com/igrigorik/contextual"
+  s.summary     = "Runtime contextual autoescaper"
+  s.description = s.summary
 
   s.rubyforge_project = "contextual"
+  s.platform = "java"
+
+  s.add_development_dependency "rspec"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
