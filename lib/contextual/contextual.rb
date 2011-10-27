@@ -26,7 +26,9 @@ module Erubis
     end
 
     def add_text(src, text)
-      src << " #{@bufvar}.writeSafe '" << text << "';" unless text.empty?
+      if !text.empty?
+        src << " #{@bufvar}.writeSafe '" << text.to_s.gsub("'", "\\\\'") << "';"
+      end
     end
 
     def add_stmt(src, code)
@@ -39,7 +41,7 @@ module Erubis
     end
 
     def add_expr_escaped(src, code)
-      src << " #{@bufvar}.write((" << code << ').to_s);'
+      src << " #{@bufvar}.write(" << code << ').to_s;'
     end
   end
 
