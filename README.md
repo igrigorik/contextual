@@ -1,9 +1,13 @@
 # Runtime Contextual Autoescaper
 
-A JRuby wrapper for [Mike Samuel's contextual HTML autoescaper](https://github.com/mikesamuel/html-contextual-autoescaper-java). A quick example of the escaper at work:
+A JRuby wrapper for [Mike Samuel's contextual HTML autoescaper](https://github.com/mikesamuel/html-contextual-autoescaper-java). 
 
-```ruby
-<% def helper(obj); "Hello, \#{obj['world']}"; end %>
+## Example
+
+First, let's define an Erb template:
+
+```erb
+<% def helper(obj); "Hello, #{obj['world']}"; end %>
 
 <div style="color: <%= object['color'] %>">
 <a href="/<%= object['color'] %>?q=<%= object['world'] %>" onclick="alert('<%= helper(object) %>');return false"><%= helper(object) %></a>
@@ -15,6 +19,7 @@ A JRuby wrapper for [Mike Samuel's contextual HTML autoescaper](https://github.c
 ```
 
 Let's load the template and execute it:
+
 ```ruby
 template = Erubis::ContextualEruby.new(template_string)
 
@@ -24,7 +29,7 @@ puts template.result(binding())
 
 Output:
 
-```
+```html
 <div style="color: blue">
 <a href="/blue?q=%3cCincinnati%3e" onclick="alert('Hello, \x3cCincinnati\x3e');return false">Hello, &lt;Cincinnati&gt;</a>
 <script>(function () {
@@ -34,4 +39,7 @@ Output:
 </div>
 ```
 
-The safe parts are treated as literal chunks of HTML/CSS/JS, the object rendered within a javascript block is automatically encoded into JSON, and appropriate values are automatically escaped (same applies for css, removing extra comments, etc).
+The safe parts are treated as literal chunks of HTML/CSS/JS, the query string parameters are auto URI encoded, same data is also auto escaped within the JS block, and the rendered object within the javascript block is automatically converted to JSON! Additionally, extra comments are removed, data is properly HTML escaped, and so forth.
+
+Contextual will also automatically strip variety of injection cases for JS, CSS, and HTML, and give you a [dozen other features](https://github.com/mikesamuel/html-contextual-autoescaper-java/tree/master/src/tests/com/google/autoesc) for free.
+
