@@ -1,6 +1,6 @@
 # Runtime Contextual Autoescaper
 
-A JRuby wrapper for [Mike Samuel's contextual HTML autoescaper](https://github.com/mikesamuel/html-contextual-autoescaper-java). 
+A JRuby wrapper for [Mike Samuel's contextual HTML autoescaper](https://github.com/mikesamuel/html-contextual-autoescaper-java).
 
 ## Example
 

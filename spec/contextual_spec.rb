@@ -56,7 +56,6 @@ describe Contextual do
   end
 
   it "should render contextual template" do
-
     object = {"world" => "<Cincinnati>", "color" => "blue"}
     template = Erubis::ContextualEruby.new(TEMPLATE)
     res = template.result(binding())
