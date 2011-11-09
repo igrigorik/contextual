@@ -48,55 +48,46 @@ module ActionView
 
         def add_preamble(src)
           src << "@output_buffer = output_buffer || Erubis::ContextualBuffer.new; "
-          p [:safe_add_preamble, src]
         end
 
         def add_text(src, text)
           if !text.empty?
-            p [:safe_add_text, text]
-            src << "@output_buffer.writeSafe '" << text.to_s.gsub("'", "\\\\'") << "';"
+            src << "@output_buffer.concat('" << text.to_s.gsub("'", "\\\\'") << "');"
           end
-        end
-
-        def add_stmt(src, code)
-          src << code
-          src << ';' unless code[-1] == ?\n
-        end
-
-        def add_expr_escaped(src, code)
-          p [:safe_add_expr_escaped, code]
-          src << " @output_buffer.write((" << code << ').to_s);'
         end
 
         def add_expr_literal(src, code)
           if code =~ BLOCK_EXPR
-            p [:safe_add_expr_literal, :block, code]
-            src << '@output_buffer.write ' << code
+            src << '@output_buffer.append= ' << code
           else
-            p [:safe_add_expr_literal, :no_block, code]
-            src << '@output_buffer.write(' << code << ');'
+            src << <<-SRC
+              val = (#{code.to_s});
+              if (val.html_safe?);
+                @output_buffer.append=(val);
+              else;
+                @output_buffer.safe_append=(val);
+              end;
+            SRC
           end
         end
 
         def add_expr_escaped(src, code)
           if code =~ BLOCK_EXPR
-            p [:safe_add_expr_escaped, :block, code]
-            src << "@output_buffer.write " << code
+            src << "@output_buffer.append= " << code
           else
-            p [:safe_add_expr_escaped, :no_block, code]
-            src << "@output_buffer.write(" << code << ");"
+            src << "@output_buffer.append(" << code << ");"
           end
         end
 
         def add_postamble(src)
-          p [:add_postamble, src]
           src << "@output_buffer.close \n"
-          src << "p [:CONTEXTUAL, @output_buffer.to_s]\n"
+          src << "p [:CONTEXTUAL,@output_buffer, @output_buffer.to_s, @output_buffer.to_s.html_safe.html_safe?]\n"
           src << "@output_buffer.to_s.html_safe"
         end
       end
 
       ERB.erb_implementation = SafeErubis
+      ActionView::OutputBuffer = ::Erubis::ContextualBuffer
 
     end
   end
