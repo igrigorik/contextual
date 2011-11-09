@@ -73,6 +73,10 @@ module Erubis
     def close
       @writer.close
     end
+
+    def presence
+      @writer.to_s.html_safe
+    end
   end
 
   class ContextualEruby < Eruby

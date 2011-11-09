@@ -81,7 +81,7 @@ module ActionView
 
         def add_postamble(src)
           src << "@output_buffer.close \n"
-          src << "p [:CONTEXTUAL,@output_buffer, @output_buffer.to_s, @output_buffer.to_s.html_safe.html_safe?]\n"
+          # src << "p [:CONTEXTUAL,@output_buffer, @output_buffer.to_s, @output_buffer.to_s.html_safe.html_safe?]\n"
           src << "@output_buffer.to_s.html_safe"
         end
       end
