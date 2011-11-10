@@ -1,6 +1,6 @@
 # Runtime Contextual Autoescaper
 
-A JRuby wrapper for [Mike Samuel's contextual HTML autoescaper](https://github.com/mikesamuel/html-contextual-autoescaper-java).
+A JRuby wrapper for [Mike Samuel's contextual HTML autoescaper](https://github.com/mikesamuel/html-contextual-autoescaper-java). Same one as [used by Google's Closure Templates](http://code.google.com/closure/templates/docs/security.html).
 
 ## Example
 
