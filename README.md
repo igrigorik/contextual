@@ -43,3 +43,6 @@ The safe parts are treated as literal chunks of HTML/CSS/JS, the query string pa
 
 Contextual will also automatically strip variety of injection cases for JS, CSS, and HTML, and give you a [dozen other features](https://github.com/mikesamuel/html-contextual-autoescaper-java/tree/master/src/tests/com/google/autoesc) for free.
 
+### License
+
+(MIT License) - Copyright (c) 2012 Ilya Grigorik
