@@ -52,7 +52,7 @@ module Erubis
     end
 
     def writeSafe(code)
-      @buf.writeSafe(code)
+      @buf.writeSafe(code.to_s)
     end
     alias :writeSafe= :writeSafe
     alias :append= :writeSafe
