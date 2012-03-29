@@ -67,4 +67,13 @@ describe Contextual do
     res.should == exp
   end
 
+  it "should render fixnums" do
+    template = Erubis::ContextualEruby.new <<-TEMPLATE
+    Number: <%= 42 %>
+    TEMPLATE
+
+    result = template.result(binding)
+
+    result.should =~ /Number: 42/
+  end
 end
