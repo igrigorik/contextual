@@ -1,10 +1,8 @@
-require 'rails'
-
-require 'contextual'
+require 'contextual/safe_erubis'
 
 describe Contextual do
   it 'should allow fixnums' do
-    template = ActionView::Template::Handlers::SafeErubis.new <<-TEMPLATE
+    template = Contextual::SafeErubis.new <<-TEMPLATE
     Number: <%= 42 %>
     TEMPLATE
 
